@@ -1,0 +1,55 @@
+ Um domain service fornece acesso a um único domínio da aplicação e lá suas regras estão contidas.
+
+ strangler pattern: 
+    quebrar em monolito, tirando os funcionalidades dele   
+    podemos começar isolando os dados
+    ou podemos começar isolando o dominio
+    
+     Com uma aplicação já funcional, é muito mais fácil identificar os domínios que precisam ser separados e o que não é tão crítico, além de termos mais confiança nas implementações das regras.
+
+ 
+ sidecar pattern
+    determine o processo comum
+    contrua um múdulo compartilhavel
+    aplique esse sidecar nos serviços que precisam dele
+
+ API Gateway - Portão p/ API
+    problema: clientes acessando livremente os serviços geram contidas
+    Gateway fornece um proxy, uma fechada, para as necessidades reasi
+    Desvantagens: Esse portão de entrada pode se tornar um ponto central de falha
+
+    Dessa forma podemos ter controles de acesso unificados, autenticação em ponto único, etc. Mas essa também é a principal desvantagem: o ponto único de falha
+
+ process aggregator pattern
+    serviços de negocio agragam serviços de dominio
+    process aggregator agregam serviços de negócio
+    agregadores fazem as chamadas para os serviços necessários e montam a resposta correta
+    pode (e deve) ter logica de processamento
+
+ Se seu aplicativo móvel precisa de menos dados que a aplicação web, um serviço de ponta pode garantir que os dados extra não sejam enviados de forma desnecessária, por exemplo.
+
+ single service database
+    problema: escalabilidade do serviço e do banco são fortemente relacionados
+    solução: cada serviço (que preisar) terá seu próprio banco de dados
+
+ shared service database
+    problema: as vezes precisamos cetralizar os dados (até por motivos contratuais)
+    solução: trate esse banco em casa serviço como se fosse separado.
+
+ Com cada serviço tendo seu próprio banco, a escalabilidade do serviço e banco pode ser feita em conjunto. Assim, serviços que recebem poucos acessos podem ter bancos menos potentes e mais baratos, e vice-versa.
+
+ cqrs(comand query responsability segregation)
+    modelos diferentes para escrever e para ler 
+    podemos até ter uma bancod e dados para escrita e outro para leitura
+    modelo de leitura pode ter informaçoes agregadas de outros dominios
+    modelo e escrita pode ter dados sendo automaticamente gerados 
+    aumento (muito) a complexidade de um sistema
+
+ asynchronous eventing
+    determinados problemas NAO PODEM ser resolvidos na hora(em tempo real)
+    um seviço emite um evento que será tratado em seu devido tempo
+    tecnologias como mensagerias e serviços de stream de dados brilham
+
+ Logs estão para a saúde do sistema assim como exames estão para nossa saúde física. Através de logs podemos identificar informações muito valiosas sobre nossa aplicação.
+
+ Os logs são o que nos permitem montar uma espécie de call stack ou stack trace, ou seja, através de logs conseguimos reproduzir uma execução e depurá-la.
